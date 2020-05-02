@@ -1,0 +1,28 @@
+version: '3'
+services:
+  frontend:
+    tty: true
+    stdin_open: true
+    build:
+      context: .
+      dockerfile: Dockerfile-frontend
+    ports:
+      - "5001:5000"
+  mymongo:
+    tty: true
+    stdin_open: true
+    build:
+      context: .
+      dockerfile: Dockerfile-mongodb
+    ports:
+      - "28017:28017"
+    volumes:
+      - /home/ubuntu/megr860902/mongodata:/data/db
+  microservicio:
+    tty: true
+    stdin_open: true
+    build:
+      context: .
+      dockerfile: Dockerfile-microservicio
+    ports:
+      - "5000:5000"

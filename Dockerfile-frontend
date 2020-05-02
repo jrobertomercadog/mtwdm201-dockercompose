@@ -1,0 +1,12 @@
+FROM node:current-buster-slim
+RUN mkdir /src
+WORKDIR /src
+RUN apt-get update
+RUN apt-get install git -y
+RUN apt-get install nginx -y
+RUN git clone https://github.com/jrobertomercadog/mtwdm201-frontend.git
+RUN cd mtwdm201-frontend && chmod 755 build.sh && ./build.sh
+RUN rm -rf /src/mtwdm201-frontend
+EXPOSE 5000
+#CMD ["sleep","3600"]
+CMD nginx -g 'daemon off;'

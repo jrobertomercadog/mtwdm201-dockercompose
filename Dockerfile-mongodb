@@ -1,0 +1,10 @@
+FROM mongo
+WORKDIR /data/db
+EXPOSE 28017
+RUN mkdir /tmp/mymongo
+RUN apt-get update
+RUN apt-get install git -y
+RUN cd /tmp/mymongo && git clone https://github.com/jrobertomercadog/mtwdm-mymongo.git
+RUN cd /tmp/mymongo/mtwdm-mymongo && chmod 755 build.sh
+#CMD ["sleep","3600"]
+ENTRYPOINT ["/tmp/mymongo/mtwdm-mymongo/build.sh"]

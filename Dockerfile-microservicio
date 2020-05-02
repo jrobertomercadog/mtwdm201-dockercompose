@@ -1,0 +1,14 @@
+FROM node:current-buster-slim
+RUN mkdir /src
+WORKDIR /src
+RUN apt-get update
+RUN apt-get install git -y
+RUN apt-get autoremove -y
+RUN apt-get clean
+RUN git clone https://github.com/jrobertomercadog/mtwdm201-microservicio.git
+RUN npm install -g typescript --save
+RUN cd mtwdm201-microservicio && npm install && tsc --build tsconfig.json && cp -rf node_modules/ /src && cp -rf dist/ /src && cp package.json package-lock.json /src 
+RUN rm -rf mtwdm201-microservicio/
+EXPOSE 5000
+#CMD ["sleep","3600"]
+CMD npm start
